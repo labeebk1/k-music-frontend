@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { AppBar, Tabs, Tab, Toolbar } from '@mui/material';
+import SearchPage from './pages/SearchPage';
+import BotQueue from './pages/BotQueue';
+import Playlist from './pages/Playlist';
+import Login from './pages/Login';
+import BotControlBar from './components/BotControlBar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <AppBar position="static">
+        <Tabs
+          textColor="inherit"
+          indicatorColor="secondary"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Tab
+            label="Search"
+            component={Link}
+            to="/search"
+            sx={{ color: 'white' }}  // Makes the text white
+          />
+          <Tab
+            label="Queue"
+            component={Link}
+            to="/queue"
+            sx={{ color: 'white' }}  // Makes the text white
+          />
+          <Tab
+            label="Playlist"
+            component={Link}
+            to="/playlist"
+            sx={{ color: 'white' }}  // Makes the text white
+          />
+        </Tabs>
+      </AppBar>
+
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/queue" element={<BotQueue />} />
+        <Route path="/playlist" element={<Playlist />} />
+      </Routes>
+
+      <Toolbar />
+      <BotControlBar />
+    </Router>
   );
 }
 
