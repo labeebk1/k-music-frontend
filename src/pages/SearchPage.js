@@ -78,7 +78,7 @@ function SearchPage() {
         </Button>
       </Box>
 
-      <Grid container spacing={3} style={{ marginTop: '20px' }}>
+      <Grid container spacing={3} style={{ marginTop: '5px' }}>
         {results.map((video) => (
           <Grid item xs={12} key={video.id}>
             <Card>
@@ -115,8 +115,8 @@ function SearchPage() {
                     </Box>
                     {/* Description directly under the title */}
                     <Typography variant="body2" color="textSecondary" style={{ marginBottom: '10px' }}>
-                      {video.description.length > 50
-                        ? `${video.description.substring(0, 50)}...`
+                      {video.description.length > 200
+                        ? `${video.description.substring(0, 200)}...`
                         : video.description}
                     </Typography>
                     {/* Buttons at the bottom */}
