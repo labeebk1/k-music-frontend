@@ -16,6 +16,7 @@ function App() {
         <Tabs
           textColor="inherit"
           indicatorColor="secondary"
+          sx={{ backgroundColor: '#01579b' }}
         >
           <Tab
             label="Search"

@@ -42,22 +42,41 @@ function BotControlBar() {
   };
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'green' }} elevation={3}>
-      <BottomNavigation>
+    <Paper
+      sx={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#607d8b', // Dark grey background
+        color: 'white', // Text color
+      }}
+      elevation={3}
+    >
+      <BottomNavigation sx={{ backgroundColor: '#607d8b' }}> {/* Ensuring inner navigation matches the theme */}
         <BottomNavigationAction
           label="Replay"
           icon={<ReplayIcon />}
           onClick={handleReplay}
+          sx={{
+            color: 'white', // Icon and label color
+          }}
         />
         <BottomNavigationAction
           label={isPlaying ? 'Pause' : 'Play'}
           icon={isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           onClick={handlePlayPause}
+          sx={{
+            color: 'white', // Icon and label color
+          }}
         />
         <BottomNavigationAction
           label="Next"
           icon={<SkipNextIcon />}
           onClick={handleNext}
+          sx={{
+            color: 'white', // Icon and label color
+          }}
         />
       </BottomNavigation>
 
