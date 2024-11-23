@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AppBar, Tabs, Tab, Toolbar } from '@mui/material';
+import { SearchProvider } from './components/SearchContext';
 import SearchPage from './pages/SearchPage';
 import BotQueue from './pages/BotQueue';
 import Playlist from './pages/Playlist';
@@ -9,6 +10,7 @@ import BotControlBar from './components/BotControlBar';
 
 function App() {
   return (
+    <SearchProvider>
     <Router>
       <AppBar position="static">
         <Tabs
@@ -46,6 +48,7 @@ function App() {
       <Toolbar />
       <BotControlBar />
     </Router>
+    </SearchProvider>
   );
 }
 
