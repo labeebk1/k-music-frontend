@@ -3,12 +3,12 @@ import { Button, TextField, Container, Grid, Card, CardContent, Typography, Card
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { SearchContext } from '../components/SearchContext'; // Import the context
+import { SearchContext } from '../components/SearchContext';
 
 const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
 function SearchPage() {
-  const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext); // Use shared state
+  const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -84,6 +84,7 @@ function SearchPage() {
             <Card>
               <CardContent>
                 <Grid container spacing={2}>
+                  {/* Thumbnail on the left */}
                   <Grid item xs={4}>
                     <a href={video.url} target="_blank" rel="noopener noreferrer">
                       <CardMedia
@@ -94,9 +95,11 @@ function SearchPage() {
                       />
                     </a>
                   </Grid>
-                  <Grid item xs={8} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                      <Typography variant="h6" gutterBottom>
+                  {/* Details on the right */}
+                  <Grid item xs={8} style={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* Title and Timer */}
+                    <Box display="flex" alignItems="center" style={{ marginBottom: '5px' }}>
+                      <Typography variant="h6" style={{ flex: 1, margin: 0 }}>
                         <a
                           href={video.url}
                           target="_blank"
@@ -106,23 +109,25 @@ function SearchPage() {
                           {video.title}
                         </a>
                       </Typography>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography variant="body2" color="textSecondary" style={{ marginLeft: '10px' }}>
                         {video.duration}
                       </Typography>
                     </Box>
-                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                    {/* Description directly under the title */}
+                    <Typography variant="body2" color="textSecondary" style={{ marginBottom: '10px' }}>
                       {video.description.length > 50
                         ? `${video.description.substring(0, 50)}...`
                         : video.description}
                     </Typography>
-                    <Box display="flex" justifyContent="space-between" style={{ marginTop: '10px' }}>
+                    {/* Buttons at the bottom */}
+                    <Box display="flex" gap={2} style={{ marginTop: 'auto' }}>
                       <Button size="small" variant="contained" color="primary">
                         Play Now
                       </Button>
-                      <Button size="small" variant="outlined">
+                      <Button size="small" variant="outlined" color="primary">
                         Add to Queue
                       </Button>
-                      <Button size="small" variant="outlined">
+                      <Button size="small" variant="outlined" color="success">
                         Add to Playlist
                       </Button>
                     </Box>
