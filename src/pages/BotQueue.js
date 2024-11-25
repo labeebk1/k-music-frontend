@@ -40,20 +40,63 @@ function BotQueue({ loggedInUser }) {
     }
   };
 
+  const nowPlaying = queue.length > 0 ? queue[0] : null;
+  const upcomingQueue = queue.length > 1 ? queue.slice(1) : [];
+
   return (
     <Container maxWidth="md" sx={{ paddingTop: '10px' }}>
-      <h2> </h2>
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
         Queue
       </Typography>
-      {queue.length === 0 ? (
-        <Typography>No songs in the queue</Typography>
+
+      {/* Now Playing Section */}
+      {nowPlaying ? (
+        <Box sx={{ marginBottom: 4 }}>
+          <Typography variant="h5" sx={{ marginBottom: 2, color: '#ff5722' }}>
+            Now Playing
+          </Typography>
+          <Card sx={{ display: 'flex', alignItems: 'center', padding: '8px', backgroundColor: '#f5f5f5' }}>
+            {/* Icon */}
+            <CardMedia
+              component="img"
+              image="https://www.citypng.com/public/uploads/preview/hd-apple-itunes-music-app-logo-icon-png-701751694777115nww0wcplip.png"
+              alt="Music Icon"
+              sx={{ width: 60, height: 60, marginRight: 2 }}
+            />
+            {/* Song Details */}
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                <a
+                  href={nowPlaying.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {nowPlaying.song}
+                </a>
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Requested by: {nowPlaying.user}
+              </Typography>
+            </Box>
+          </Card>
+        </Box>
       ) : (
+        <Typography variant="body1" sx={{ marginBottom: 4 }}>
+          No song is currently playing.
+        </Typography>
+      )}
+
+      {/* Upcoming Section */}
+      <Typography variant="h5" sx={{ marginBottom: 2, color: '#2196f3' }}>
+        Upcoming
+      </Typography>
+      {upcomingQueue.length > 0 ? (
         <Grid container spacing={3}>
-          {queue.map((item, index) => (
+          {upcomingQueue.map((item, index) => (
             <Grid item xs={12} key={index}>
-              <Card sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
-                {/* Icon on the left */}
+              <Card sx={{ display: 'flex', alignItems: 'center', padding: '8px', backgroundColor: '#e1f5fe' }}>
+                {/* Icon */}
                 <CardMedia
                   component="img"
                   image="https://www.citypng.com/public/uploads/preview/hd-apple-itunes-music-app-logo-icon-png-701751694777115nww0wcplip.png"
@@ -64,12 +107,12 @@ function BotQueue({ loggedInUser }) {
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                     <a
-                      href={item.url} // Hyperlink the song title
+                      href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                      {`${index + 1}. ${item.song}`}
+                      {`${index + 2}. ${item.song}`}
                     </a>
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
@@ -77,10 +120,10 @@ function BotQueue({ loggedInUser }) {
                   </Typography>
                 </Box>
                 {/* Remove Button */}
-                <Button 
-                  variant="outlined" 
-                  color="secondary" 
-                  onClick={() => handleRemove(index)}
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => handleRemove(index + 1)}
                 >
                   Remove
                 </Button>
@@ -88,6 +131,8 @@ function BotQueue({ loggedInUser }) {
             </Grid>
           ))}
         </Grid>
+      ) : (
+        <Typography variant="body1">No upcoming songs in the queue.</Typography>
       )}
     </Container>
   );
