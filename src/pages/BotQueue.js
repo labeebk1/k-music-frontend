@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Card, Grid, Typography, Button, Box, CardMedia } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function BotQueue({ loggedInUser }) {
   const [queue, setQueue] = useState([]);
+  const navigate = useNavigate();
 
   // Fetch the bot's queue on mount and set up polling
   useEffect(() => {
@@ -24,6 +26,11 @@ function BotQueue({ loggedInUser }) {
   }, []);
 
   const handleRemove = async (position) => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to play a song.');
+      navigate('/');
+      return;
+    }
     try {
       await axios.post('http://127.0.0.1:8000/remove_from_queue', { position }); // Adjust the endpoint and payload
       setQueue(queue.filter((_, index) => index !== position));

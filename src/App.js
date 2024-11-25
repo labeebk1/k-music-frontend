@@ -54,7 +54,7 @@ function App() {
       </Routes>
       
       <Toolbar />
-      <BotControlBar />
+      <BotControlBar loggedInUser={loggedInUser} />
     </Router>
     <ToastContainer />
     </SearchProvider>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Button, TextField, Container, Grid, Card, CardContent, Typography, CardMedia, Box } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { SearchContext } from '../components/SearchContext';
 import { usePlayer } from '../components/PlayerContext';
@@ -11,6 +12,7 @@ const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 function SearchPage({ loggedInUser }) {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
   const { setIsPlaying } = usePlayer();
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -62,6 +64,7 @@ function SearchPage({ loggedInUser }) {
     try {
       if (!loggedInUser) {
         toast.error('You must be logged in to play a song.');
+        navigate('/');
         return;
       }
       const requestData = {
@@ -81,6 +84,7 @@ function SearchPage({ loggedInUser }) {
   const handleAddToQueue = async (video) => {
     if (!loggedInUser) {
       toast.error('You must be logged in to play a song.');
+      navigate('/');
       return;
     }
     try {

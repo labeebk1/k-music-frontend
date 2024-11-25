@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -8,10 +9,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { usePlayer } from '../components/PlayerContext'; // Import the PlayerContext
 
-function BotControlBar() {
+function BotControlBar({ loggedInUser }) {
   const { isPlaying, setIsPlaying } = usePlayer();
   const [currentSong, setCurrentSong] = useState(''); // State for the "Now Playing" song
   const [dj, setDj] = useState(''); // State for the DJ
+  const navigate = useNavigate();
 
   // Poll the backend every 2 seconds to fetch the current song and DJ
   useEffect(() => {
@@ -32,6 +34,11 @@ function BotControlBar() {
   }, []);
 
   const handleReplay = () => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to play a song.');
+      navigate('/');
+      return;
+    }
     axios.get('http://127.0.0.1:8000/replay')
       .then(() => toast.success('Replaying the current song')).then(() => {
         setIsPlaying(true);
@@ -40,6 +47,11 @@ function BotControlBar() {
   };
 
   const handlePlayPause = () => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to play a song.');
+      navigate('/');
+      return;
+    }
     if (isPlaying) {
       axios.get('http://127.0.0.1:8000/pause')
         .then(() => {
@@ -58,6 +70,11 @@ function BotControlBar() {
   };
 
   const handleNext = () => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to play a song.');
+      navigate('/');
+      return;
+    }
     axios.get('http://127.0.0.1:8000/skip')
       .then(() => toast.success('Skipped to the next song')).then(() => {
         setIsPlaying(true);
