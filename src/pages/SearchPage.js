@@ -9,7 +9,7 @@ import { usePlayer } from '../components/PlayerContext';
 
 const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
-function SearchPage({ loggedInUser }) {
+function SearchPage({ loggedInUser, backendURL }) {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
   const { setIsPlaying } = usePlayer();
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ function SearchPage({ loggedInUser }) {
         user_name: loggedInUser,
       };
 
-      await axios.post('http://34.130.40.68:8000/play_now', requestData);
+      await axios.post(backendURL + '/play_now', requestData);
       setIsPlaying(true);
       toast.success(`Playing: ${video.title}`);
     } catch (error) {
@@ -94,7 +94,7 @@ function SearchPage({ loggedInUser }) {
         user_name: loggedInUser,
       };
 
-      await axios.post('http://34.130.40.68:8000/add_to_queue', requestData);
+      await axios.post(backendURL + '/add_to_queue', requestData);
       toast.success(`Added to queue: ${video.title}`);
     } catch (error) {
       toast.error('Failed to add the song to the queue. Please try again.');
@@ -114,7 +114,7 @@ function SearchPage({ loggedInUser }) {
         user_name: loggedInUser,
       };
 
-      await axios.post('http://34.130.40.68:8000/add_to_playlist', requestData);
+      await axios.post(backendURL + '/add_to_playlist', requestData);
       toast.success(`Added to playlist: ${video.title}`);
     } catch (error) {
       toast.error('Failed to add the song to the playlist. Please try again.');

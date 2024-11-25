@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Container } from '@mui/material';
 import axios from 'axios';
 
-function Login({ setLoggedInUser }) {
+function Login({ setLoggedInUser, backendURL }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ function Login({ setLoggedInUser }) {
   const handleLogin = async () => {
     try {
       // POST request to log in or create a new user
-      const response = await axios.post('http://34.130.40.68:8000/login', { name: username, password });
+      const response = await axios.post(backendURL + '/login', { name: username, password });
       setLoggedInUser(response.data.user); // Save the user in the app state
       console.log(response.data.user);
       navigate('/search'); // Redirect to the search page

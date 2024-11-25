@@ -4,7 +4,7 @@ import { Container, Card, Grid, Typography, Button, Box, CardMedia } from '@mui/
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function BotQueue({ loggedInUser }) {
+function BotQueue({ loggedInUser, backendURL }) {
   const [queue, setQueue] = useState([]);
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function BotQueue({ loggedInUser }) {
   useEffect(() => {
     const fetchQueue = async () => {
       try {
-        const response = await axios.get('http://34.130.40.68:8000/queue'); // Adjust the endpoint URL if necessary
+        const response = await axios.get(backendURL + '/queue'); // Adjust the endpoint URL if necessary
         setQueue(response.data.queue);
       } catch (error) {
         toast.error('Failed to fetch queue');
@@ -32,7 +32,7 @@ function BotQueue({ loggedInUser }) {
       return;
     }
     try {
-      await axios.post('http://34.130.40.68:8000/remove_from_queue', { position }); // Adjust the endpoint and payload
+      await axios.post(backendURL + '/remove_from_queue', { position }); // Adjust the endpoint and payload
       setQueue(queue.filter((_, index) => index !== position));
       toast.success('Song removed from queue');
     } catch (error) {

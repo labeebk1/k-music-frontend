@@ -9,7 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { usePlayer } from '../components/PlayerContext'; // Import the PlayerContext
 
-function BotControlBar({ loggedInUser }) {
+function BotControlBar({ loggedInUser, backendURL }) {
   const { isPlaying, setIsPlaying } = usePlayer();
   const [currentSong, setCurrentSong] = useState(''); // State for the "Now Playing" song
   const [dj, setDj] = useState(''); // State for the DJ
@@ -19,7 +19,7 @@ function BotControlBar({ loggedInUser }) {
   useEffect(() => {
     const fetchCurrentSong = async () => {
       try {
-        const response = await axios.get('http://34.130.40.68:8000/current_song'); // Backend endpoint for the current song
+        const response = await axios.get(backendURL + '/current_song'); // Backend endpoint for the current song
         setCurrentSong(response.data.title); // Assuming the response contains a "title" field
         setDj(response.data.user); // Assuming the response contains a "user" field
       } catch (error) {
@@ -39,7 +39,7 @@ function BotControlBar({ loggedInUser }) {
       navigate('/');
       return;
     }
-    axios.get('http://34.130.40.68:8000/replay')
+    axios.get(backendURL + '/replay')
       .then(() => toast.success('Replaying the current song')).then(() => {
         setIsPlaying(true);
       })
@@ -53,14 +53,14 @@ function BotControlBar({ loggedInUser }) {
       return;
     }
     if (isPlaying) {
-      axios.get('http://34.130.40.68:8000/pause')
+      axios.get(backendURL + '/pause')
         .then(() => {
           setIsPlaying(false);
           toast.info('Paused the song');
         })
         .catch(() => toast.error('Failed to pause'));
     } else {
-      axios.get('http://34.130.40.68:8000/resume')
+      axios.get(backendURL + '/resume')
         .then(() => {
           setIsPlaying(true);
           toast.success('Resumed the song');
@@ -75,7 +75,7 @@ function BotControlBar({ loggedInUser }) {
       navigate('/');
       return;
     }
-    axios.get('http://34.130.40.68:8000/skip')
+    axios.get(backendURL + '/skip')
       .then(() => toast.success('Skipped to the next song')).then(() => {
         setIsPlaying(true);
       })

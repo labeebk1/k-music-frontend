@@ -15,6 +15,8 @@ function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null); // State for the logged-in user
 
+  const backendURL = 'http://34.130.40.68:8000'; // 34.130.40.68 127.0.0.1
+
   return (
     <PlayerProvider>
     <SearchProvider>
@@ -47,10 +49,10 @@ function App() {
       </AppBar>
 
       <Routes>
-        <Route path="/" element={<Login setLoggedInUser={setLoggedInUser} />} />
-        <Route path="/search" element={<SearchPage loggedInUser={loggedInUser} />} />
-        <Route path="/queue" element={<BotQueue loggedInUser={loggedInUser} />} />
-        <Route path="/playlist" element={<Playlist loggedInUser={loggedInUser} />} />
+        <Route path="/" element={<Login setLoggedInUser={setLoggedInUser} backendURL={backendURL}/>} />
+        <Route path="/search" element={<SearchPage loggedInUser={loggedInUser}  backendURL={backendURL} />} />
+        <Route path="/queue" element={<BotQueue loggedInUser={loggedInUser}  backendURL={backendURL} />} />
+        <Route path="/playlist" element={<Playlist loggedInUser={loggedInUser}  backendURL={backendURL} />} />
       </Routes>
       
       <Toolbar />
