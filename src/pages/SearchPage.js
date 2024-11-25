@@ -83,7 +83,7 @@ function SearchPage({ loggedInUser }) {
 
   const handleAddToQueue = async (video) => {
     if (!loggedInUser) {
-      toast.error('You must be logged in to play a song.');
+      toast.error('You must be logged in to add a song to the queue.');
       navigate('/');
       return;
     }
@@ -98,6 +98,26 @@ function SearchPage({ loggedInUser }) {
       toast.success(`Added to queue: ${video.title}`);
     } catch (error) {
       toast.error('Failed to add the song to the queue. Please try again.');
+    }
+  };
+
+  const handleAddToPlaylist = async (video) => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to add a song to your playlist.');
+      navigate('/');
+      return;
+    }
+    try {
+      const requestData = {
+        title: video.title,
+        url: video.url,
+        user_name: loggedInUser,
+      };
+
+      await axios.post('http://127.0.0.1:8000/add_to_playlist', requestData);
+      toast.success(`Added to playlist: ${video.title}`);
+    } catch (error) {
+      toast.error('Failed to add the song to the playlist. Please try again.');
     }
   };
 
@@ -182,7 +202,12 @@ function SearchPage({ loggedInUser }) {
                       >
                         Add to Queue
                       </Button>
-                      <Button size="small" variant="outlined" color="success">
+                      <Button 
+                        size="small" 
+                        variant="outlined" 
+                        color="success"
+                        onClick={() => handleAddToPlaylist(video)}
+                      >
                         Add to Playlist
                       </Button>
                     </Box>
