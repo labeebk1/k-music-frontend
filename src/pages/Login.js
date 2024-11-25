@@ -11,7 +11,7 @@ function Login({ setLoggedInUser }) {
   const handleLogin = async () => {
     try {
       // POST request to log in or create a new user
-      const response = await axios.post('http://127.0.0.1:8000/login', { name: username, password });
+      const response = await axios.post('http://34.130.40.68:8000/login', { name: username, password });
       setLoggedInUser(response.data.user); // Save the user in the app state
       console.log(response.data.user);
       navigate('/search'); // Redirect to the search page

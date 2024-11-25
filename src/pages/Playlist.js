@@ -16,7 +16,7 @@ function Playlist({ loggedInUser }) {
     // Fetch the user's playlist
     const fetchPlaylist = async () => {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/show_playlist', {
+        const response = await axios.post('http://34.130.40.68:8000/show_playlist', {
           name: loggedInUser,
         });
         setPlaylist(response.data.playlist);
@@ -30,7 +30,7 @@ function Playlist({ loggedInUser }) {
 
   const handleRemove = async (song) => {
     try {
-      await axios.post('http://127.0.0.1:8000/remove_from_playlist', {
+      await axios.post('http://34.130.40.68:8000/remove_from_playlist', {
         title: song.title,
         url: song.url,
         user_name: loggedInUser,
@@ -44,7 +44,7 @@ function Playlist({ loggedInUser }) {
 
   const handleAddToQueue = async (song) => {
     try {
-      await axios.post('http://127.0.0.1:8000/add_to_queue', {
+      await axios.post('http://34.130.40.68:8000/add_to_queue', {
         title: song.title,
         url: song.url,
         user_name: loggedInUser,
