@@ -5,13 +5,11 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { SearchContext } from '../components/SearchContext';
-import { usePlayer } from '../components/PlayerContext';
 
 const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
 function SearchPage({ loggedInUser, backendURL }) {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
-  const { setIsPlaying } = usePlayer();
   const navigate = useNavigate();
 
   const handleSearch = async () => {
@@ -57,27 +55,6 @@ function SearchPage({ loggedInUser, backendURL }) {
       setResults(videos);
     } catch (error) {
       toast.error('Failed to fetch YouTube videos.');
-    }
-  };
-
-  const handlePlayNow = async (video) => {
-    try {
-      if (!loggedInUser) {
-        toast.error('You must be logged in to play a song.');
-        navigate('/');
-        return;
-      }
-      const requestData = {
-        title: video.title,
-        url: video.url,
-        user_name: loggedInUser,
-      };
-
-      await axios.post(backendURL + '/play_now', requestData);
-      setIsPlaying(true);
-      toast.success(`Playing: ${video.title}`);
-    } catch (error) {
-      toast.error('Failed to play the song. Please try again.');
     }
   };
 
@@ -189,15 +166,7 @@ function SearchPage({ loggedInUser, backendURL }) {
                       <Button 
                         size="small" 
                         variant="contained" 
-                        color="primary"
-                        onClick={() => handlePlayNow(video)}
-                      >
-                        Play Now
-                      </Button>
-                      <Button 
-                        size="small" 
-                        variant="outlined" 
-                        color="primary"
+                        color="primary" // Blue for Add to Queue
                         onClick={() => handleAddToQueue(video)}
                       >
                         Add to Queue
@@ -205,7 +174,7 @@ function SearchPage({ loggedInUser, backendURL }) {
                       <Button 
                         size="small" 
                         variant="outlined" 
-                        color="success"
+                        color="success" // Green for Add to Playlist
                         onClick={() => handleAddToPlaylist(video)}
                       >
                         Add to Playlist
