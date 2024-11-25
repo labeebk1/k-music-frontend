@@ -84,14 +84,43 @@ function BotControlBar({ loggedInUser }) {
 
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#607d8b', color: 'white' }} elevation={3}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
+          padding: '0 16px' 
+        }}
+      >
         {/* Now Playing Section */}
-        <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'bold' }}>
-          {currentSong ? `Now Playing: ${currentSong}` : 'No song playing'}
-        </Typography>
+        <Box 
+          sx={{ 
+            flex: 1, 
+            overflow: 'hidden', 
+            whiteSpace: 'nowrap', 
+            textOverflow: 'ellipsis', 
+            maxWidth: '100%' 
+          }}
+        >
+          <Typography 
+            variant="subtitle1" 
+            sx={{ 
+              color: 'white', 
+            }}
+          >
+            {currentSong ? `Now Playing: ${currentSong}` : 'No song playing'}
+          </Typography>
+        </Box>
 
         {/* Bottom Navigation Buttons */}
-        <BottomNavigation sx={{ backgroundColor: '#607d8b', flex: 1, marginLeft: '16px' }}>
+        <BottomNavigation
+          sx={{ 
+            backgroundColor: '#607d8b', 
+            flex: 1, 
+            display: 'flex', 
+            justifyContent: 'center' 
+          }}
+        >
           <BottomNavigationAction
             label="Replay"
             icon={<ReplayIcon />}
@@ -113,9 +142,24 @@ function BotControlBar({ loggedInUser }) {
         </BottomNavigation>
 
         {/* DJ Section */}
-        <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'bold' }}>
-          {dj ? `DJ: ${dj}` : ''}
-        </Typography>
+        <Box 
+          sx={{ 
+            flex: 1, 
+            textAlign: 'right', 
+            whiteSpace: 'nowrap', 
+            overflow: 'hidden', 
+            textOverflow: 'ellipsis' 
+          }}
+        >
+          <Typography 
+            variant="subtitle1" 
+            sx={{ 
+              color: 'white' 
+            }}
+          >
+            {dj ? `DJ: ${dj}` : ''}
+          </Typography>
+        </Box>
       </Box>
     </Paper>
   );
