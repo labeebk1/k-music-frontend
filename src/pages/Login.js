@@ -20,6 +20,12 @@ function Login({ setLoggedInUser, backendURL }) {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   return (
     <Container>
       <h2>Login</h2>
@@ -34,6 +40,7 @@ function Login({ setLoggedInUser, backendURL }) {
         type="password"
         value={password} 
         onChange={(e) => setPassword(e.target.value)} 
+        onKeyDown={handleKeyDown} // Handle Enter key press
         fullWidth 
         style={{ marginTop: '10px' }}
       />

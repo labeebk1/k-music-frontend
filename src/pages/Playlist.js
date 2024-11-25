@@ -3,13 +3,16 @@ import { Container, Card, Typography, Button, CardMedia, Box } from '@mui/materi
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Playlist({ loggedInUser, backendURL }) {
   const [playlist, setPlaylist] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loggedInUser) {
       toast.error('You must be logged in to view your playlist.');
+      navigate('/');
       return;
     }
 
