@@ -82,7 +82,7 @@ function SearchPage() {
 
   return (
     <Container maxWidth="md" sx={{ paddingTop: '10px' }}>
-      <h2></h2>
+      <h2> </h2>
       <Box display="flex" alignItems="center" gap={2}>
         <TextField 
           label="Search YouTube" 
