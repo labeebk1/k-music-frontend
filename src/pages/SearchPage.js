@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { Button, TextField, Container, Grid, Card, CardContent, Typography, CardMedia, Box } from '@mui/material';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SearchContext } from '../components/SearchContext';
+import { usePlayer } from '../components/PlayerContext';
 
 const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
 function SearchPage() {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
+  const { setIsPlaying } = usePlayer(); // Access the setIsPlaying function from context
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -52,7 +54,23 @@ function SearchPage() {
 
       setResults(videos);
     } catch (error) {
-      toast.error('Failed to fetch YouTube videos');
+      toast.error('Failed to fetch YouTube videos.');
+    }
+  };
+
+  const handlePlayNow = async (video) => {
+    try {
+      const requestData = {
+        title: video.title,
+        url: video.url,
+        user_name: "JohnDoe", // Replace with dynamic user input if available
+      };
+
+      await axios.post('http://127.0.0.1:8000/play_now', requestData);
+      setIsPlaying(true); // Set the shared state to "playing"
+      toast.success(`Playing: ${video.title}`);
+    } catch (error) {
+      toast.error('Failed to play the song. Please try again.');
     }
   };
 
@@ -121,7 +139,12 @@ function SearchPage() {
                     </Typography>
                     {/* Buttons at the bottom */}
                     <Box display="flex" gap={2} style={{ marginTop: 'auto' }}>
-                      <Button size="small" variant="contained" color="primary">
+                      <Button 
+                        size="small" 
+                        variant="contained" 
+                        color="primary"
+                        onClick={() => handlePlayNow(video)}
+                      >
                         Play Now
                       </Button>
                       <Button size="small" variant="outlined" color="primary">
@@ -138,8 +161,6 @@ function SearchPage() {
           </Grid>
         ))}
       </Grid>
-
-      <ToastContainer />
     </Container>
   );
 }

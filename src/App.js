@@ -7,9 +7,13 @@ import BotQueue from './pages/BotQueue';
 import Playlist from './pages/Playlist';
 import Login from './pages/Login';
 import BotControlBar from './components/BotControlBar';
+import { PlayerProvider } from './components/PlayerContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
+    <PlayerProvider>
     <SearchProvider>
     <Router>
       <AppBar position="static">
@@ -45,11 +49,13 @@ function App() {
         <Route path="/queue" element={<BotQueue />} />
         <Route path="/playlist" element={<Playlist />} />
       </Routes>
-
+      
       <Toolbar />
       <BotControlBar />
     </Router>
+    <ToastContainer />
     </SearchProvider>
+    </PlayerProvider>
   );
 }
 

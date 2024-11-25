@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, List, ListItem, ListItemText } from '@mui/material';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function BotQueue() {
@@ -49,8 +49,6 @@ function BotQueue() {
         ))}
       </List>
 
-      {/* Toast container to display toasts */}
-      <ToastContainer />
     </Container>
   );
 }

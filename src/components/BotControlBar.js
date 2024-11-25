@@ -1,87 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import { usePlayer } from '../components/PlayerContext'; // Import the PlayerContext
 
 function BotControlBar() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { isPlaying, setIsPlaying } = usePlayer();
 
   const handleReplay = () => {
-    axios.post('/api/bot/replay')
+    axios.get('http://127.0.0.1:8000/replay')
       .then(() => toast.success('Replaying the current song'))
       .catch(() => toast.error('Failed to replay'));
   };
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      axios.post('/api/bot/pause')
+      axios.get('http://127.0.0.1:8000/pause')
         .then(() => {
           setIsPlaying(false);
           toast.info('Paused the song');
         })
         .catch(() => toast.error('Failed to pause'));
     } else {
-      axios.post('/api/bot/play')
+      axios.get('http://127.0.0.1:8000/resume')
         .then(() => {
           setIsPlaying(true);
-          toast.success('Playing the song');
+          toast.success('Resumed the song');
         })
         .catch(() => toast.error('Failed to play'));
     }
   };
 
   const handleNext = () => {
-    axios.post('/api/bot/next')
+    axios.post('http://127.0.0.1:8000/skip')
       .then(() => toast.success('Skipped to the next song'))
       .catch(() => toast.error('Failed to skip'));
   };
 
   return (
-    <Paper
-      sx={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#607d8b', // Dark grey background
-        color: 'white', // Text color
-      }}
-      elevation={3}
-    >
-      <BottomNavigation sx={{ backgroundColor: '#607d8b' }}> {/* Ensuring inner navigation matches the theme */}
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: '#607d8b', color: 'white' }} elevation={3}>
+      <BottomNavigation sx={{ backgroundColor: '#607d8b' }}>
         <BottomNavigationAction
           label="Replay"
           icon={<ReplayIcon />}
           onClick={handleReplay}
-          sx={{
-            color: 'white', // Icon and label color
-          }}
+          sx={{ color: 'white' }}
         />
         <BottomNavigationAction
           label={isPlaying ? 'Pause' : 'Play'}
           icon={isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           onClick={handlePlayPause}
-          sx={{
-            color: 'white', // Icon and label color
-          }}
+          sx={{ color: 'white' }}
         />
         <BottomNavigationAction
           label="Next"
           icon={<SkipNextIcon />}
           onClick={handleNext}
-          sx={{
-            color: 'white', // Icon and label color
-          }}
+          sx={{ color: 'white' }}
         />
       </BottomNavigation>
-
-      {/* Toast container to display toasts */}
-      <ToastContainer />
     </Paper>
   );
 }
