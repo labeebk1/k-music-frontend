@@ -8,7 +8,7 @@ import { usePlayer } from '../components/PlayerContext';
 
 const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
-function SearchPage() {
+function SearchPage({ loggedInUser }) {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
   const { setIsPlaying } = usePlayer();
 
@@ -60,10 +60,14 @@ function SearchPage() {
 
   const handlePlayNow = async (video) => {
     try {
+      if (!loggedInUser) {
+        toast.error('You must be logged in to play a song.');
+        return;
+      }
       const requestData = {
         title: video.title,
         url: video.url,
-        user_name: "JohnDoe", // Replace with dynamic user input if available
+        user_name: loggedInUser,
       };
 
       await axios.post('http://127.0.0.1:8000/play_now', requestData);
@@ -75,11 +79,15 @@ function SearchPage() {
   };
 
   const handleAddToQueue = async (video) => {
+    if (!loggedInUser) {
+      toast.error('You must be logged in to play a song.');
+      return;
+    }
     try {
       const requestData = {
         title: video.title,
         url: video.url,
-        user_name: "JohnDoe", // Replace with dynamic user input if available
+        user_name: loggedInUser,
       };
 
       await axios.post('http://127.0.0.1:8000/add_to_queue', requestData);

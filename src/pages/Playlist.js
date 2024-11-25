@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Playlist() {
+function Playlist({ loggedInUser }) {
   const [playlist, setPlaylist] = useState([]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AppBar, Tabs, Tab, Toolbar } from '@mui/material';
 import { SearchProvider } from './components/SearchContext';
@@ -12,6 +12,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+
+  const [loggedInUser, setLoggedInUser] = useState(null); // State for the logged-in user
+
   return (
     <PlayerProvider>
     <SearchProvider>
@@ -44,10 +47,10 @@ function App() {
       </AppBar>
 
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/queue" element={<BotQueue />} />
-        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/" element={<Login setLoggedInUser={setLoggedInUser} />} />
+        <Route path="/search" element={<SearchPage loggedInUser={loggedInUser} />} />
+        <Route path="/queue" element={<BotQueue loggedInUser={loggedInUser} />} />
+        <Route path="/playlist" element={<Playlist loggedInUser={loggedInUser} />} />
       </Routes>
       
       <Toolbar />

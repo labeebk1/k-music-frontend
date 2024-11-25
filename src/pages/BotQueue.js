@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, CardContent, Grid, Typography, Button, Box, CardMedia } from '@mui/material';
+import { Container, Card, Grid, Typography, Button, Box, CardMedia } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function BotQueue() {
+function BotQueue({ loggedInUser }) {
   const [queue, setQueue] = useState([]);
 
   // Fetch the bot's queue on mount and set up polling
