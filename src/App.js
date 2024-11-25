@@ -6,6 +6,7 @@ import SearchPage from './pages/SearchPage';
 import BotQueue from './pages/BotQueue';
 import Playlist from './pages/Playlist';
 import Login from './pages/Login';
+import ImportPlaylist from './pages/ImportPlaylist';
 import BotControlBar from './components/BotControlBar';
 import { PlayerProvider } from './components/PlayerContext';
 import { ToastContainer } from 'react-toastify';
@@ -45,6 +46,12 @@ function App() {
             to="/playlist"
             sx={{ color: 'white' }}  // Makes the text white
           />
+          <Tab
+            label="Import Playlist"
+            component={Link}
+            to="/import"
+            sx={{ color: 'white' }}  // Makes the text white
+          />
         </Tabs>
       </AppBar>
 
@@ -53,6 +60,7 @@ function App() {
         <Route path="/search" element={<SearchPage loggedInUser={loggedInUser}  backendURL={backendURL} />} />
         <Route path="/queue" element={<BotQueue loggedInUser={loggedInUser}  backendURL={backendURL} />} />
         <Route path="/playlist" element={<Playlist loggedInUser={loggedInUser}  backendURL={backendURL} />} />
+        <Route path="/import" element={<ImportPlaylist loggedInUser={loggedInUser}  backendURL={backendURL} />} />
       </Routes>
       
       <Toolbar />
