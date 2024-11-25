@@ -56,7 +56,7 @@ function App() {
       </Routes>
       
       <Toolbar />
-      <BotControlBar loggedInUser={loggedInUser} />
+      <BotControlBar backendURL={backendURL} loggedInUser={loggedInUser} />
     </Router>
     <ToastContainer />
     </SearchProvider>
