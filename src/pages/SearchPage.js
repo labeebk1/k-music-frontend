@@ -10,7 +10,7 @@ const API_KEY = 'AIzaSyDSIUDdWQf0yQx24vAi-V2D9HZk_3V5vFY';
 
 function SearchPage() {
   const { searchTerm, setSearchTerm, results, setResults } = useContext(SearchContext);
-  const { setIsPlaying } = usePlayer(); // Access the setIsPlaying function from context
+  const { setIsPlaying } = usePlayer();
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -67,10 +67,25 @@ function SearchPage() {
       };
 
       await axios.post('http://127.0.0.1:8000/play_now', requestData);
-      setIsPlaying(true); // Set the shared state to "playing"
+      setIsPlaying(true);
       toast.success(`Playing: ${video.title}`);
     } catch (error) {
       toast.error('Failed to play the song. Please try again.');
+    }
+  };
+
+  const handleAddToQueue = async (video) => {
+    try {
+      const requestData = {
+        title: video.title,
+        url: video.url,
+        user_name: "JohnDoe", // Replace with dynamic user input if available
+      };
+
+      await axios.post('http://127.0.0.1:8000/add_to_queue', requestData);
+      toast.success(`Added to queue: ${video.title}`);
+    } catch (error) {
+      toast.error('Failed to add the song to the queue. Please try again.');
     }
   };
 
@@ -147,7 +162,12 @@ function SearchPage() {
                       >
                         Play Now
                       </Button>
-                      <Button size="small" variant="outlined" color="primary">
+                      <Button 
+                        size="small" 
+                        variant="outlined" 
+                        color="primary"
+                        onClick={() => handleAddToQueue(video)}
+                      >
                         Add to Queue
                       </Button>
                       <Button size="small" variant="outlined" color="success">
