@@ -16,7 +16,7 @@ function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null); // State for the logged-in user
 
-  const backendURL = 'http://34.130.40.68:8000'; // 34.130.40.68 127.0.0.1
+  const backendURL = 'http://34.130.54.254:8000'; // 34.130.40.68 127.0.0.1
 
   return (
     <PlayerProvider>

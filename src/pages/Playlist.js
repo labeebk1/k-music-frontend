@@ -78,7 +78,7 @@ function Playlist({ loggedInUser, backendURL }) {
             {/* Icon */}
             <CardMedia
               component="img"
-              src="https://image.similarpng.com/very-thumbnail/2020/12/Popular-Music-icon-in-round-black-color-on-transparent-background-PNG.png"
+              src="https://t3.ftcdn.net/jpg/04/54/66/12/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg"
               alt="Music Icon"
               sx={{
                 width: '50px',

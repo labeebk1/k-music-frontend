@@ -59,7 +59,7 @@ function BotQueue({ loggedInUser, backendURL }) {
             {/* Icon */}
             <CardMedia
               component="img"
-              image="https://www.citypng.com/public/uploads/preview/hd-apple-itunes-music-app-logo-icon-png-701751694777115nww0wcplip.png"
+              image="https://t3.ftcdn.net/jpg/04/54/66/12/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg"
               alt="Music Icon"
               sx={{ width: 60, height: 60, marginRight: 2 }}
             />
@@ -88,7 +88,7 @@ function BotQueue({ loggedInUser, backendURL }) {
       )}
 
       {/* Upcoming Section */}
-      <Typography variant="h5" sx={{ marginBottom: 2, color: '#2196f3' }}>
+      <Typography variant="h5" sx={{ marginBottom: 2, color: '#2196f3' }}>``
         Upcoming
       </Typography>
       {upcomingQueue.length > 0 ? (
@@ -99,7 +99,7 @@ function BotQueue({ loggedInUser, backendURL }) {
                 {/* Icon */}
                 <CardMedia
                   component="img"
-                  image="https://www.citypng.com/public/uploads/preview/hd-apple-itunes-music-app-logo-icon-png-701751694777115nww0wcplip.png"
+                  image="https://t3.ftcdn.net/jpg/04/54/66/12/360_F_454661277_NtQYM8oJq2wOzY1X9Y81FlFa06DVipVD.jpg"
                   alt="Music Icon"
                   sx={{ width: 50, height: 50, marginRight: 2 }}
                 />
